@@ -16,3 +16,11 @@ number of tickets corresponding to their importance level (higher number of tick
 doubled for the number of ticks they were blocked for.
 
 ## Code Details
+
+In sysproc.c you can see the system call settickets(int pid, int n_tickets) which sets the number of tickets a process has and the system call 
+getpinfo(struct pstat *) which stores a processes PID, the number of ticks it's scheduled for, and the number of boosts it has (time it has been sleeping
+for) in the process stat struct.
+
+The main logic of the change from the Round Robin scheduler to the Lottery Scheduler occurs in the hold_lottery(int total_tickets) function in proc.c. This
+is the function that handles the logic of how a winner is decided in the lottery. Besides this function, sleep and wake functions in proc.c handle how
+processes that are blocked are dealt with and the fork function handles how child processes are dealt with.
